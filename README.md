@@ -41,42 +41,42 @@ The warehouse follows the **Medallion Architecture**, moving data through three 
 ```text
 data-warehouse-project/
 │
-├── datasets/                       # Raw source data (CSV files)
-│   ├── source_crm/
-│   │   ├── cust_info.csv
-│   │   ├── prd_info.csv
-│   │   └── sales_details.csv
-│   └── source_erp/
-│       ├── CUST_AZ12.csv
-│       ├── LOC_A101.csv
-│       └── PX_CAT_G1V2.csv
+├── datasets/                       # Raw source data used for the project (CRM and ERP CSV files)
+│   ├── source_crm/                 # Data exported from the CRM system
+│   │   ├── cust_info.csv           # Customer master data
+│   │   ├── prd_info.csv            # Product master data
+│   │   └── sales_details.csv       # Sales transaction records
+│   └── source_erp/                 # Data exported from the ERP system
+│       ├── CUST_AZ12.csv           # Supplementary customer data (birthdate, gender)
+│       ├── LOC_A101.csv            # Customer location/country data
+│       └── PX_CAT_G1V2.csv         # Product category and maintenance data
 │
-├── docs/                           # Architecture diagrams & documentation
-│   ├── Data_Architecture.png
-│   ├── Data_Flow.png
-│   ├── Data_Integration.png
-│   ├── Data_Model.png                
-│   ├── ETL.jpeg                    Project documentation and architecture details
-│   ├── data_catalog.md
-│   └── naming_conventions.md
+├── docs/                           # Project documentation and architecture details
+│   ├── Data_Architecture.png       # Diagram of the Bronze-Silver-Gold layered architecture
+│   ├── Data_Flow.png               # Diagram showing how data flows between layers
+│   ├── Data_Integration.png        # Diagram showing how CRM and ERP sources are integrated
+│   ├── Data_Model.png              # Diagram of the Gold layer's star schema
+│   ├── ETL.jpeg                    # Diagram of the ETL techniques and methods used
+│   ├── data_catalog.md             # Catalog of datasets, including field descriptions and metadata
+│   └── naming_conventions.md       # Consistent naming guidelines for tables, columns, and files
 │
-├── scripts/                        # T-SQL scripts, organized by layer
-│   ├── init_database.sql
-│   ├── bronze/
-│   │   ├── ddl_bronze.sql
-│   │   └── proc_load_bronze.sql
-│   ├── silver/
-│   │   ├── ddl_silver.sql
-│   │   └── proc_load_silver.sql
-│   └── gold/
-│       └── ddl_gold.sql
+├── scripts/                        # T-SQL scripts, organized by Medallion layer
+│   ├── init_database.sql           # Creates the warehouse database and schemas
+│   ├── bronze/                     # Scripts for extracting and loading raw data
+│   │   ├── ddl_bronze.sql          # Table definitions for the Bronze layer
+│   │   └── proc_load_bronze.sql    # Stored procedure to load raw CSVs into Bronze tables
+│   ├── silver/                     # Scripts for cleaning and transforming data
+│   │   ├── ddl_silver.sql          # Table definitions for the Silver layer
+│   │   └── proc_load_silver.sql    # Stored procedure to clean, standardize, and load Silver tables
+│   └── gold/                       # Scripts for creating business-ready analytical models
+│       └── ddl_gold.sql            # View definitions implementing the Gold layer's star schema
 │
 ├── tests/                          # Data quality validation scripts
-│   ├── quality_check_silver.sql
-│   └── quality_check_gold.sql
+│   ├── quality_check_silver.sql    # Validates data quality at the Silver layer
+│   └── quality_check_gold.sql      # Validates data quality and referential integrity at the Gold layer
 │
-├── LICENSE.txt
-└── README.md
+├── LICENSE.txt                     # License information for the repository (MIT)
+└── README.md                       # Project overview and instructions
 ```
 
 ---
